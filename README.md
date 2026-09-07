@@ -34,13 +34,34 @@ autorestic_config_path: "{{ autorestic_config_directory }}/.autorestic.yml"
 autorestic_config_mode: 0600
 autorestic_config_owner: "{{ autorestic_config_user }}"
 autorestic_config_group: "{{ autorestic_config_user }}"
-
-autorestic_distro: linux_amd64
-restic_distro: linux_amd64
 ```
 The other variables, like `restic_gh_url`, `restic_install_directory`, etc I do not recommend changing unless you want to customize the install.
 
-See the release pages for [autorestic](https://github.com/cupcakearmy/autorestic/releases) and [restic](https://github.com/restic/restic/releases/) to find the correct distribution for your install.
+### Binary architecture (distro)
+
+By default the role picks the correct GitHub release asset for the target host from `ansible_facts.architecture` (requires `gather_facts: true`). Empty `restic_distro` / `autorestic_distro` means auto-detect.
+
+Supported architecture keys and release suffixes:
+
+| `ansible_facts.architecture` | Asset suffix |
+| --- | --- |
+| `x86_64` | `linux_amd64` |
+| `aarch64`, `arm64` | `linux_arm64` |
+| `i386`, `i686` | `linux_386` |
+| `armv6l`, `armv7l` | `linux_arm` |
+| `ppc64le` | `linux_ppc64le` |
+| `s390x` | `linux_s390x` |
+| `mips` | `linux_mips` |
+| `mips64` | `linux_mips64` |
+
+To force a specific asset (or an arch not in the map), set both explicitly:
+
+```yaml
+autorestic_distro: linux_arm64
+restic_distro: linux_arm64
+```
+
+See the release pages for [autorestic](https://github.com/cupcakearmy/autorestic/releases) and [restic](https://github.com/restic/restic/releases/) for available distributions.
 
 ### Example for Autorestic Config File
 

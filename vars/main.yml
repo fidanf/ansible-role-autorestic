@@ -1,0 +1,15 @@
+---
+# Map ansible_facts.architecture → GitHub release asset suffix (linux_*).
+# Shared by restic and autorestic (same naming for Linux .bz2 binaries).
+_autorestic_distro_map:
+  x86_64: linux_amd64
+  aarch64: linux_arm64
+  arm64: linux_arm64
+  i386: linux_386
+  i686: linux_386
+  armv6l: linux_arm
+  armv7l: linux_arm
+  ppc64le: linux_ppc64le
+  s390x: linux_s390x
+  mips: linux_mips
+  mips64: linux_mips64
