@@ -3,7 +3,7 @@
 ### Restic Install
 restic_download_latest_ver: true  # Change to 'false' to pin to a specific version
 restic_pinned_ver: 0.12.1  # Overriden by 'restic_download_latest_ver' variable
-restic_distro: linux_amd64
+restic_distro: ""  # empty = auto from ansible_facts.architecture
 
 restic_gh_url: https://github.com/restic/restic/releases/download
 restic_download_directory: "/tmp/restic"
@@ -14,7 +14,7 @@ restic_install_path: "{{ restic_install_directory }}/restic"
 ### Autorestic Install
 autorestic_download_latest_ver: true  # Change to 'false' to pin to a specific version
 autorestic_pinned_ver: 1.2.0  # Overriden by 'autorestic_download_latest_ver' variable
-autorestic_distro: linux_amd64
+autorestic_distro: ""  # empty = auto from ansible_facts.architecture
 
 autorestic_gh_url: https://github.com/cupcakearmy/autorestic/releases/download
 autorestic_download_directory: "/tmp/autorestic"

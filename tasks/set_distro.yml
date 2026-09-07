@@ -1,0 +1,17 @@
+---
+- name: Assert host architecture is supported for binary download
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.architecture is defined
+      - ansible_facts.architecture in _autorestic_distro_map
+    fail_msg: >-
+      Unsupported architecture '{{ ansible_facts.architecture | default('undefined') }}'.
+      Supported keys: {{ _autorestic_distro_map.keys() | list | sort | join(', ') }}.
+      Set restic_distro and autorestic_distro explicitly to skip auto-detect.
+    success_msg: "Architecture {{ ansible_facts.architecture }} → {{ _autorestic_distro_map[ansible_facts.architecture] }}"
+  when: (restic_distro | length) == 0 or (autorestic_distro | length) == 0
+
+- name: Set restic_distro and autorestic_distro from facts when unset
+  ansible.builtin.set_fact:
+    restic_distro: "{{ restic_distro if (restic_distro | length) > 0 else _autorestic_distro_map[ansible_facts.architecture] }}"
+    autorestic_distro: "{{ autorestic_distro if (autorestic_distro | length) > 0 else _autorestic_distro_map[ansible_facts.architecture] }}"

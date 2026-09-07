@@ -1,4 +1,7 @@
 ---
+- name: Set binary distro from host architecture
+  ansible.builtin.include_tasks: set_distro.yml
+
 - name: Install autorestic
   ansible.builtin.include_tasks: install_autorestic.yml
 
